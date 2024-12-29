@@ -438,10 +438,42 @@ export interface ApiCleanerCleaner extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiServiceRequestServiceRequest
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'service_requests';
+  info: {
+    displayName: 'ServiceRequest';
+    pluralName: 'service-requests';
+    singularName: 'service-request';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service-request.service-request'
+    > &
+      Schema.Attribute.Private;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    serviceName: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.Integer;
+    userName: Schema.Attribute.String;
+  };
+}
+
 export interface ApiTaskTask extends Struct.CollectionTypeSchema {
   collectionName: 'tasks';
   info: {
-    description: '';
     displayName: 'Task';
     pluralName: 'tasks';
     singularName: 'task';
@@ -450,20 +482,19 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    app_user: Schema.Attribute.Relation<'oneToOne', 'api::app-user.app-user'>;
     cleaners: Schema.Attribute.Relation<'oneToMany', 'api::cleaner.cleaner'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Description: Schema.Attribute.Blocks;
+    frequency: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::task.task'> &
       Schema.Attribute.Private;
-    Media: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
     publishedAt: Schema.Attribute.DateTime;
-    Title: Schema.Attribute.String;
+    siteName: Schema.Attribute.String;
+    surfaceItem: Schema.Attribute.String;
+    task: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -981,6 +1012,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::app-user.app-user': ApiAppUserAppUser;
       'api::cleaner.cleaner': ApiCleanerCleaner;
+      'api::service-request.service-request': ApiServiceRequestServiceRequest;
       'api::task.task': ApiTaskTask;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
