@@ -9,7 +9,7 @@ export default factories.createCoreController('api::task.task', ({ strapi }) => 
     try {
       const tasks = await strapi.entityService.findMany('api::task.task', {
         filters: ctx.query.filters || {},
-        populate: ['app_user', 'cleaners'],
+        populate: ['app_user', 'cleaner'],
       });
 
       ctx.body = tasks;

@@ -23,12 +23,6 @@
     },
     "Phone": {
       "type": "integer"
-    },
-    "task": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::task.task",
-      "inversedBy": "cleaners"
     }
   }
 }

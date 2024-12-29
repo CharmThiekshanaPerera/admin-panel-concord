@@ -430,7 +430,6 @@ export interface ApiCleanerCleaner extends Struct.CollectionTypeSchema {
     Password: Schema.Attribute.Password;
     Phone: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    task: Schema.Attribute.Relation<'manyToOne', 'api::task.task'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -474,6 +473,7 @@ export interface ApiServiceRequestServiceRequest
 export interface ApiTaskTask extends Struct.CollectionTypeSchema {
   collectionName: 'tasks';
   info: {
+    description: '';
     displayName: 'Task';
     pluralName: 'tasks';
     singularName: 'task';
@@ -483,7 +483,7 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
   };
   attributes: {
     app_user: Schema.Attribute.Relation<'oneToOne', 'api::app-user.app-user'>;
-    cleaners: Schema.Attribute.Relation<'oneToMany', 'api::cleaner.cleaner'>;
+    cleaner: Schema.Attribute.Relation<'oneToOne', 'api::cleaner.cleaner'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

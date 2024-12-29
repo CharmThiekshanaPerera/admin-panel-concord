@@ -4,7 +4,8 @@
   "info": {
     "singularName": "task",
     "pluralName": "tasks",
-    "displayName": "Task"
+    "displayName": "Task",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -28,11 +29,10 @@
       "relation": "oneToOne",
       "target": "api::app-user.app-user"
     },
-    "cleaners": {
+    "cleaner": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::cleaner.cleaner",
-      "mappedBy": "task"
+      "relation": "oneToOne",
+      "target": "api::cleaner.cleaner"
     }
   }
 }
