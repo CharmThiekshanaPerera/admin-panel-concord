@@ -57,4 +57,50 @@ export default factories.createCoreController('api::app-user.app-user', ({ strap
       ctx.internalServerError('An error occurred during login.');
     }
   },
+
+  async register(ctx) {
+    const { username, email, password, phone } = ctx.request.body;
+
+    // Validate input
+    if (!username || !email || !password) {
+      return ctx.badRequest('All fields (username, email, password) are required.');
+    }
+
+    try {
+      // Check if email is already registered
+      const existingUser = await strapi.entityService.findMany('api::app-user.app-user', {
+        filters: { email },
+        limit: 1,
+      });
+
+      if (existingUser.length > 0) {
+        return ctx.badRequest('Email is already registered.');
+      }
+
+      // Hash password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Create new user
+      const newUser = await strapi.entityService.create('api::app-user.app-user', {
+        data: {
+          username,
+          email,
+          password: hashedPassword,
+          phone,
+        },
+      });
+
+      // Respond with created user data
+      return ctx.send({
+        message: 'User registered successfully.',
+        user: {
+          id: newUser.id,
+          username: newUser.username,
+          email: newUser.email,
+        },
+      });
+    } catch (error) {
+      ctx.internalServerError('An error occurred during registration.');
+    }
+  },
 }));
