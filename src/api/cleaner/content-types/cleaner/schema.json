@@ -5,24 +5,29 @@
     "singularName": "cleaner",
     "pluralName": "cleaners",
     "displayName": "Cleaner",
-    "description": ""
+    "description": "Manage cleaner accounts"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "Username": {
+    "username": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "password": {
+      "type": "password",
+      "required": true
+    },
+    "phone": {
       "type": "string"
-    },
-    "Email": {
-      "type": "email"
-    },
-    "Password": {
-      "type": "password"
-    },
-    "Phone": {
-      "type": "integer"
     }
   }
 }

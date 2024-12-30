@@ -1,7 +1,23 @@
-/**
- * cleaner router
- */
-
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreRouter('api::cleaner.cleaner');
+export default {
+    routes: [
+      {
+        method: 'POST',
+        path: '/cleaners/register',
+        handler: 'cleaner.register',
+        config: {
+          policies: [],
+          middlewares: [],
+        },
+      },
+      {
+        method: 'POST',
+        path: '/cleaners/login',
+        handler: 'cleaner.login',
+        config: {
+          policies: [],
+          middlewares: [],
+        },
+      }
+    ]
+  };
+  

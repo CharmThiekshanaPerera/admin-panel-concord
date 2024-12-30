@@ -408,32 +408,36 @@ export interface ApiAppUserAppUser extends Struct.CollectionTypeSchema {
 export interface ApiCleanerCleaner extends Struct.CollectionTypeSchema {
   collectionName: 'cleaners';
   info: {
-    description: '';
+    description: 'Manage cleaner accounts';
     displayName: 'Cleaner';
     pluralName: 'cleaners';
     singularName: 'cleaner';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Email: Schema.Attribute.Email;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::cleaner.cleaner'
     > &
       Schema.Attribute.Private;
-    Password: Schema.Attribute.Password;
-    Phone: Schema.Attribute.Integer;
+    password: Schema.Attribute.Password & Schema.Attribute.Required;
+    phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Username: Schema.Attribute.String;
+    username: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
   };
 }
 
