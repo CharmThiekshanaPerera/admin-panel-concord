@@ -405,6 +405,36 @@ export interface ApiAppUserAppUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiChemicalChemical extends Struct.CollectionTypeSchema {
+  collectionName: 'chemicals';
+  info: {
+    displayName: 'Chemical';
+    pluralName: 'chemicals';
+    singularName: 'chemical';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    chemicalName: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dateTime: Schema.Attribute.DateTime;
+    liters: Schema.Attribute.Decimal;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::chemical.chemical'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCleanerCleaner extends Struct.CollectionTypeSchema {
   collectionName: 'cleaners';
   info: {
@@ -445,6 +475,7 @@ export interface ApiCompleteTaskCompleteTask
   extends Struct.CollectionTypeSchema {
   collectionName: 'complete_tasks';
   info: {
+    description: '';
     displayName: 'CompleteTask';
     pluralName: 'complete-tasks';
     singularName: 'complete-task';
@@ -456,7 +487,6 @@ export interface ApiCompleteTaskCompleteTask
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    frequency: Schema.Attribute.String;
     images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -1079,6 +1109,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::app-user.app-user': ApiAppUserAppUser;
+      'api::chemical.chemical': ApiChemicalChemical;
       'api::cleaner.cleaner': ApiCleanerCleaner;
       'api::complete-task.complete-task': ApiCompleteTaskCompleteTask;
       'api::service-request.service-request': ApiServiceRequestServiceRequest;
