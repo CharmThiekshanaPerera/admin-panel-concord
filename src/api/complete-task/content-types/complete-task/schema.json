@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "complete_tasks",
+  "info": {
+    "singularName": "complete-task",
+    "pluralName": "complete-tasks",
+    "displayName": "CompleteTask"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "task": {
+      "type": "string"
+    },
+    "surfaceItem": {
+      "type": "string"
+    },
+    "siteName": {
+      "type": "string"
+    },
+    "frequency": {
+      "type": "string"
+    },
+    "images": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

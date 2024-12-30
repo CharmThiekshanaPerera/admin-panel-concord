@@ -441,6 +441,43 @@ export interface ApiCleanerCleaner extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCompleteTaskCompleteTask
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'complete_tasks';
+  info: {
+    displayName: 'CompleteTask';
+    pluralName: 'complete-tasks';
+    singularName: 'complete-task';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    frequency: Schema.Attribute.String;
+    images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::complete-task.complete-task'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    siteName: Schema.Attribute.String;
+    surfaceItem: Schema.Attribute.String;
+    task: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String;
+  };
+}
+
 export interface ApiServiceRequestServiceRequest
   extends Struct.CollectionTypeSchema {
   collectionName: 'service_requests';
@@ -499,6 +536,33 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     siteName: Schema.Attribute.String;
     surfaceItem: Schema.Attribute.String;
     task: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiVenueVenue extends Struct.CollectionTypeSchema {
+  collectionName: 'venues';
+  info: {
+    displayName: 'Venue';
+    pluralName: 'venues';
+    singularName: 'venue';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    app_user: Schema.Attribute.Relation<'oneToOne', 'api::app-user.app-user'>;
+    cleaner: Schema.Attribute.Relation<'oneToOne', 'api::cleaner.cleaner'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::venue.venue'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    task: Schema.Attribute.Relation<'oneToOne', 'api::task.task'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1016,8 +1080,10 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::app-user.app-user': ApiAppUserAppUser;
       'api::cleaner.cleaner': ApiCleanerCleaner;
+      'api::complete-task.complete-task': ApiCompleteTaskCompleteTask;
       'api::service-request.service-request': ApiServiceRequestServiceRequest;
       'api::task.task': ApiTaskTask;
+      'api::venue.venue': ApiVenueVenue;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
