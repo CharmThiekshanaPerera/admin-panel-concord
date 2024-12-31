@@ -509,6 +509,40 @@ export interface ApiCompleteTaskCompleteTask
   };
 }
 
+export interface ApiIncomeIncome extends Struct.CollectionTypeSchema {
+  collectionName: 'incomes';
+  info: {
+    displayName: 'Income';
+    pluralName: 'incomes';
+    singularName: 'income';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal;
+    cleaner: Schema.Attribute.Relation<'oneToOne', 'api::cleaner.cleaner'>;
+    complete_task: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::complete-task.complete-task'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dateTime: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::income.income'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiServiceRequestServiceRequest
   extends Struct.CollectionTypeSchema {
   collectionName: 'service_requests';
@@ -1145,6 +1179,7 @@ declare module '@strapi/strapi' {
       'api::chemical.chemical': ApiChemicalChemical;
       'api::cleaner.cleaner': ApiCleanerCleaner;
       'api::complete-task.complete-task': ApiCompleteTaskCompleteTask;
+      'api::income.income': ApiIncomeIncome;
       'api::service-request.service-request': ApiServiceRequestServiceRequest;
       'api::task.task': ApiTaskTask;
       'api::usage.usage': ApiUsageUsage;
