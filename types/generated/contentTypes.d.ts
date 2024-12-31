@@ -472,6 +472,40 @@ export interface ApiCleanerCleaner extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
+  collectionName: 'complaints';
+  info: {
+    displayName: 'complaint';
+    pluralName: 'complaints';
+    singularName: 'complaint';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    attachment: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.DateTime;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::complaint.complaint'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userName: Schema.Attribute.String;
+  };
+}
+
 export interface ApiCompleteTaskCompleteTask
   extends Struct.CollectionTypeSchema {
   collectionName: 'complete_tasks';
@@ -1178,6 +1212,7 @@ declare module '@strapi/strapi' {
       'api::app-user.app-user': ApiAppUserAppUser;
       'api::chemical.chemical': ApiChemicalChemical;
       'api::cleaner.cleaner': ApiCleanerCleaner;
+      'api::complaint.complaint': ApiComplaintComplaint;
       'api::complete-task.complete-task': ApiCompleteTaskCompleteTask;
       'api::income.income': ApiIncomeIncome;
       'api::service-request.service-request': ApiServiceRequestServiceRequest;
