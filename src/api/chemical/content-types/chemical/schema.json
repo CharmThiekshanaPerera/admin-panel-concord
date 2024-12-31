@@ -19,6 +19,12 @@
     },
     "dateTime": {
       "type": "datetime"
+    },
+    "usages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::usage.usage",
+      "mappedBy": "chemical_id"
     }
   }
 }

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "usages",
+  "info": {
+    "singularName": "usage",
+    "pluralName": "usages",
+    "displayName": "Usage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "chemical_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::chemical.chemical",
+      "inversedBy": "usages"
+    },
+    "chemical_name": {
+      "type": "string"
+    },
+    "amount_added": {
+      "type": "decimal"
+    },
+    "timestamp": {
+      "type": "datetime"
+    }
+  }
+}

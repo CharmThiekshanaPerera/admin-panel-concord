@@ -432,6 +432,7 @@ export interface ApiChemicalChemical extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    usages: Schema.Attribute.Relation<'oneToMany', 'api::usage.usage'>;
   };
 }
 
@@ -569,6 +570,38 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUsageUsage extends Struct.CollectionTypeSchema {
+  collectionName: 'usages';
+  info: {
+    displayName: 'Usage';
+    pluralName: 'usages';
+    singularName: 'usage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amount_added: Schema.Attribute.Decimal;
+    chemical_id: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::chemical.chemical'
+    >;
+    chemical_name: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::usage.usage'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    timestamp: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String;
   };
 }
 
@@ -1114,6 +1147,7 @@ declare module '@strapi/strapi' {
       'api::complete-task.complete-task': ApiCompleteTaskCompleteTask;
       'api::service-request.service-request': ApiServiceRequestServiceRequest;
       'api::task.task': ApiTaskTask;
+      'api::usage.usage': ApiUsageUsage;
       'api::venue.venue': ApiVenueVenue;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
