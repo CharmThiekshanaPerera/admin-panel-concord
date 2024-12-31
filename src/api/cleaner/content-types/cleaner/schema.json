@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cleaners",
+  "info": {
+    "singularName": "cleaner",
+    "pluralName": "cleaners",
+    "displayName": "Cleaner",
+    "description": "Manage cleaner accounts"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "password": {
+      "type": "password",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    }
+  }
+}

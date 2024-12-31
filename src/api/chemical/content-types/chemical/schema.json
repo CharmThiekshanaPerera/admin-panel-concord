@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chemicals",
+  "info": {
+    "singularName": "chemical",
+    "pluralName": "chemicals",
+    "displayName": "Chemical"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "chemicalName": {
+      "type": "string"
+    },
+    "liters": {
+      "type": "decimal"
+    },
+    "dateTime": {
+      "type": "datetime"
+    },
+    "usages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::usage.usage",
+      "mappedBy": "chemical_id"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "incomes",
+  "info": {
+    "singularName": "income",
+    "pluralName": "incomes",
+    "displayName": "Income"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cleaner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cleaner.cleaner"
+    },
+    "complete_task": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::complete-task.complete-task"
+    },
+    "dateTime": {
+      "type": "datetime"
+    },
+    "amount": {
+      "type": "decimal"
+    }
+  }
+}
