@@ -4,7 +4,6 @@
 
 import { factories } from '@strapi/strapi';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 
 export default factories.createCoreController('api::app-user.app-user', ({ strapi }) => ({
   async login(ctx) {
@@ -18,7 +17,7 @@ export default factories.createCoreController('api::app-user.app-user', ({ strap
     try {
       // Find the user by username
       const [user] = await strapi.entityService.findMany('api::app-user.app-user', {
-        filters: { username },
+        filters: { username, password },
         limit: 1,
       });
 
@@ -26,12 +25,7 @@ export default factories.createCoreController('api::app-user.app-user', ({ strap
         return ctx.badRequest('Invalid username or password.');
       }
 
-      // Validate password
-      const isValidPassword = await bcrypt.compare(password, user.password);
-
-      if (!isValidPassword) {
-        return ctx.badRequest('Invalid username or password.');
-      }
+      
 
       // Generate JWT
       const token = jwt.sign(
@@ -77,15 +71,12 @@ export default factories.createCoreController('api::app-user.app-user', ({ strap
         return ctx.badRequest('Email is already registered.');
       }
 
-      // Hash password
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      // Create new user
+      // Create new user (no hashing)
       const newUser = await strapi.entityService.create('api::app-user.app-user', {
         data: {
           username,
           email,
-          password: hashedPassword,
+          password, // Store plain text password
           phone,
         },
       });

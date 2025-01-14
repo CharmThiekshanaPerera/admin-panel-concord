@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tools",
+  "info": {
+    "singularName": "tool",
+    "pluralName": "tools",
+    "displayName": "Tool"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "toolName": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "dateTime": {
+      "type": "datetime"
+    }
+  }
+}

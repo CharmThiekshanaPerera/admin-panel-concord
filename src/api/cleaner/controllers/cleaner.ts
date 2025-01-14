@@ -1,6 +1,5 @@
 import { factories } from '@strapi/strapi';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 
 export default factories.createCoreController('api::cleaner.cleaner', ({ strapi }) => ({
   async login(ctx) {
@@ -12,17 +11,11 @@ export default factories.createCoreController('api::cleaner.cleaner', ({ strapi 
 
     try {
       const [user] = await strapi.entityService.findMany('api::cleaner.cleaner', {
-        filters: { username },
+        filters: { username, password }, // Direct match with plain-text password
         limit: 1,
       });
 
       if (!user) {
-        return ctx.badRequest('Invalid username or password.');
-      }
-
-      const isValidPassword = await bcrypt.compare(password, user.password);
-
-      if (!isValidPassword) {
         return ctx.badRequest('Invalid username or password.');
       }
 
@@ -66,13 +59,11 @@ export default factories.createCoreController('api::cleaner.cleaner', ({ strapi 
         return ctx.badRequest('Email is already registered.');
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
-
       const newUser = await strapi.entityService.create('api::cleaner.cleaner', {
         data: {
           username,
           email,
-          password: hashedPassword,
+          password, // Storing password as plain text
           phone,
         },
       });

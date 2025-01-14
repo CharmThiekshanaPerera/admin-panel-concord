@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "utilizes",
+  "info": {
+    "singularName": "utilize",
+    "pluralName": "utilizes",
+    "displayName": "Utilize"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "tool_id": {
+      "type": "integer"
+    },
+    "tool_name": {
+      "type": "string"
+    },
+    "quantity_added": {
+      "type": "integer"
+    },
+    "timestamp": {
+      "type": "datetime"
+    }
+  }
+}
